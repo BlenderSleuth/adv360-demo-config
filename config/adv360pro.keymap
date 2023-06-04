@@ -9,13 +9,17 @@
 #include "mouse.dtsi"
 
 #define ___ &trans
+#define BRWS_BCK &kp LA(LEFT_ARROW)
+#define BRWS_FWD &kp LA(RIGHT_ARROW)
 
 #define QWERTY 0
 #define COLEMAK 1
-#define KEYPAD 2
-#define FN 3
-#define MOD 4
-#define MS 5
+#define EXTD 2
+#define SYMB 3
+#define KEYPAD 4
+#define MEDIA 5
+#define MOD 6
+
 
 / {
     /* remove unused keys from layout and move thumb cluster to bottom */
@@ -28,23 +32,49 @@
 
         base_layer {
             bindings = <
-                &kp EQUAL &kp N1    &kp N2    &kp N3    &kp N4    &kp N5    &tog KEYPAD    &mo MOD   &kp N6    &kp N7    &kp N8    &kp N9    &kp N0    &kp MINUS
+                &kp ESC   &kp N1    &kp N2    &kp N3    &kp N4    &kp N5    &tog KEYPAD    &mo MOD   &kp N6    &kp N7    &kp N8    &kp N9    &kp N0    &kp MINUS
                 &kp TAB   &kp Q     &kp W     &kp E     &kp R     &kp T     &to QWERTY     &tog MS   &kp Y     &kp U     &kp I     &kp O     &kp P     &kp BSLH
-                &kp ESC   &kp A     &kp S     &kp D     &kp F     &kp G     &to COLEMAK    &none     &kp H     &kp J     &kp K     &kp L     &kp SEMI  &kp SQT
+                &mo EXTD  &kp A     &kp S     &kp D     &kp F     &kp G     &to COLEMAK    &none     &kp H     &kp J     &kp K     &kp L     &kp SEMI  &mo SYMB
                 &kp LSHFT &kp Z     &kp X     &kp C     &kp V     &kp B                              &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH  &kp RSHFT
-                &mo FN    &kp GRAVE &kp CAPS  &kp LEFT  &kp RIGHT                                              &kp UP    &kp DOWN  &kp LBKT  &kp RBKT  &mo FN
+                &mo MEDIA &kp GRAVE &kp CAPS  &kp LEFT  &kp RIGHT                                              &kp UP    &kp DOWN  &kp LBKT  &kp RBKT  &mo MEDIA
                                                                   &kp LCTRL &kp LALT       &kp LGUI  &kp RCTRL
                                                         &kp BSPC  &kp DEL   &kp HOME       &kp PG_UP &kp ENTER &kp SPACE
                                                                             &kp END        &kp PG_DN
             >;
-        };
+        };+
 
-        colemak_layer {
+        colemak {
             bindings = <
                 ___       ___       ___       ___       ___       ___       ___            ___       ___       ___       ___       ___       ___       ___
-                ___       &kp Q     &kp W     &kp F     &kp P     &kp B     ___            ___       &kp J     &kp L     &kp U     &kp Y     &kp SQT   &kp BSLH
-                ___       &kp A     &kp R     &kp S     &kp T     &kp G     ___            ___       &kp M     &kp N     &kp E     &kp I     &kp O     &kp FSLH
+                ___       &kp Q     &kp W     &kp F     &kp P     &kp B     ___            ___       &kp J     &kp L     &kp U     &kp Y     &kp SQT   ___
+                ___       &kp A     &kp R     &kp S     &kp T     &kp G     ___            ___       &kp M     &kp N     &kp E     &kp I     &kp O     ___
                 ___       &kp Z     &kp X     &kp C     &kp D     &kp V                              &kp K     &kp H     &kp COMMA &kp DOT   &kp SEMI  ___
+                ___       ___       ___       ___       ___                                                    ___       ___       ___       ___       ___
+                                                                  ___       ___            ___       ___
+                                                        ___       ___       ___            ___       ___       ___
+                                                                            ___            ___
+            >;
+        };
+
+        extend {
+            bindings = <
+                ___       &kp F1    &kp F2    &kp F3    &kp F4    &kp F5    &kp F6         &kp F7    &kp F8    &kp F9    &kp F10   &kp F11   &kp F12   ___
+                ___       &kp ESC   U_WH_U    BRWS_BCK  BRWS_FWD  U_MS_U    ___            ___       &kp PG_UP &kp HOME  &kp UP    &kp END   &kp DEL   ___
+                ___       &sk LALT  U_WH_D    &sk LSHFT &sk LCTRL U_MS_D    ___            ___       &kp PG_DN &kp LEFT  &kp DOWN  &kp RIGHT &kp BSPC  ___
+                ___       &kp LC(Z) &kp LC(X) &kp LC(C) &kp LC(P) U_LCLK                             U_RCLK    U_MS_L    U_MS_R    U_WH_L    U_WH_R    ___
+                ___       ___       ___       ___       ___                                                    ___       ___       ___       ___       ___
+                                                                  ___       ___            ___       ___
+                                                        ___       ___       ___            ___       ___       ___
+                                                                            ___            ___
+            >;
+        };
+
+        symbols {
+            bindings = <
+                ___       ___       ___       ___       ___       ___       ___            ___       ___       ___       ___       ___       ___       ___
+                ___       &kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT ___            ___       &kp EQUAL &kp KP_N7 &kp KP_N8 &kp KP_N9 &kp MINUS ___
+                ___       &kp BSLH  &kp PIPE  &kp LBRC  &kp LPAR  &kp LBKT  ___            ___       &kp STAR  &kp KP_N4 &kp KP_N5 &kp KP_N6 &kp LT    ___
+                ___       &kp CARET &kp AMPS  &kp RBRC  &kp RPAR  &kp RBKT                           &kp KP_N0 &kp KP_N1 &kp KP_N2 &kp KP_N3 &kp GT    ___
                 ___       ___       ___       ___       ___                                                    ___       ___       ___       ___       ___
                                                                   ___       ___            ___       ___
                                                         ___       ___       ___            ___       ___       ___
@@ -65,9 +95,9 @@
             >;
         };
 
-        fn {
+        media {
             bindings = <
-                &kp F1    &kp F2    &kp F3    &kp F4    &kp F5    &kp F6    ___            ___       &kp F7    &kp F8    &kp F9    &kp F10   &kp F11   &kp F12
+                ___ &kp K_MUTE &kp C_VOL_DN &kp C_VOL_UP &kp C_PP &kp C_NEXT ___           ___ &kp C_PREV &kp C_FF &kp C_RW &kp C_BRI_UP &kp C_BRI_DN  ___
                 ___       ___       ___       ___       ___       ___       ___            ___       ___       ___       ___       ___       ___       ___
                 ___       ___       ___       ___       ___       ___       ___            ___       ___       ___       ___       ___       ___       ___
                 ___       ___       ___       ___       ___       ___                                ___       ___       ___       ___       ___       ___
@@ -90,21 +120,6 @@
                                                                                            ___              ___
             >;
         };
-
-        mouse {
-            bindings = <
-                ___       ___       ___       ___       ___       ___       ___            ___       ___       ___       ___       ___       ___       ___
-                ___       ___       ___       ___       ___       ___       ___            ___       ___       ___       ___       ___       ___       ___
-                ___       ___       ___       ___       ___       ___       ___            ___       ___       ___       ___       ___       ___       ___
-                ___       ___       ___       ___       ___       ___                                ___       ___       ___       ___       ___       ___
-                ___       ___       ___       U_MS_L    U_MS_R                                                 U_MS_U    U_MS_D    ___       ___       ___
-                                                                  U_BTN3    ___            ___       U_BTN3
-                                                        U_BTN1    U_BTN2    U_WH_L         U_WH_U    U_BTN2    U_BTN1
-                                                                            U_WH_R         U_WH_D
-            >;
-        };
-
     };
-
 };
 
